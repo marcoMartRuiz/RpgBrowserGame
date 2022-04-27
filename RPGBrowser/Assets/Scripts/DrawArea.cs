@@ -2,60 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using ns_physics;
-using ns_UI;
-namespace ns_Player{
+using Unity.Mathematics;
+namespace ns_UI
+{
 
-    public class Player : MonoBehaviour{
-        [SerializeField] GameObject PlayerPrefab;
+    public class DrawArea : MonoBehaviour
+    {
         [SerializeField] GameObject brush;
-        // [SerializeField]Camera playerCamera;
-        // ObjMovement objMovement;
-        GameObject newplayer;
-        GameObject brushInstance;
-        TextMeshProUGUI newplayerName;
-        DrawArea drawArea;
-        GameObject r1;
-        // GameObject activeMenu;
-
-
-        private void Start(){
-            newplayer = Instantiate(PlayerPrefab, transform.position, Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform);
-            newplayerName = newplayer.transform.Find("PlayerNameTextObj").GetComponent<TextMeshProUGUI>();
-            r1 = newplayer.transform.Find("innerRadiusObj").gameObject;
-            drawArea = new DrawArea();
-            //may want to add drawarea class instance to save rout info?
+        GameObject tempBrush;
+        // // LineRenderer currentLineRenderer;
+        // Vector2 lastPos;
+        // Vector2 onScreenMousePos;
+        public void CreateBrush()
+        {
+        //  onScreenMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            tempBrush = Instantiate(brush, transform.position, Quaternion.identity);
+            // currentLineRenderer = brush.GetComponent<LineRenderer>();
+            // currentLineRenderer.SetPosition(0, transform.position);
+            // currentLineRenderer.SetPosition(1, onScreenMousePos);
         }
-        private void Update(){
-            Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
-            //get obj that mouse is hovering over
-            
-            if (Input.GetMouseButtonDown(0) & hit.collider != null){
-                //get obj mouse hovers over and
-                newplayer.transform.Find("MenuPanelObj").gameObject.SetActive(true);
-               
-               if (r1.activeInHierarchy == false)
-               {
-                   
-                brushInstance = Instantiate(brush, transform.position, Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform);
-                drawArea.CreateBrush(brushInstance,worldPoint);
-               }
-                   
-              
-            }
-            else if (Input.GetMouseButton(0) & r1.activeInHierarchy)
-            {
-                drawArea.PointToMousePos(worldPoint);
+        // private void Update()
+        // {
+        //     if (Input.GetMouseButton(0))
+        //     {
+        //         PointToMousePos();
+        //     }
+        //     if (Input.GetKeyUp("escape"))
+        //     {
+        //         Destroy(tempBrush);
+        //     }
+        // }
+        // public void AddPoint()
+        // {
+        //     currentLineRenderer.positionCount++;
+        //     int positionIndex = currentLineRenderer.positionCount - 1;
+        //     currentLineRenderer.SetPosition(positionIndex, onScreenMousePos);
+        // }
+        // public void PointToMousePos()
+        // {
+        //     if (onScreenMousePos != lastPos)
+        //     {
+        //         AddPoint();
+        //         lastPos = onScreenMousePos;
+        //     }
+        // }
+        public void DestroyTempBrush()
+        {
+            Destroy(tempBrush);
+        }
 
-               
-            }
-             if (Input.GetMouseButtonUp(0) & r1.activeInHierarchy)
-            {
-                drawArea.getPathDrawn();
-                
-     
-            }
-            // if (Input.GetMouseButtonDown(1)){
-            //     Debug.Log("Right Click");
-        
+    }
+}
