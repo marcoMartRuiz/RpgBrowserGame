@@ -7,8 +7,8 @@ public class BrushLine : MonoBehaviour
 {
     LineRenderer currentLineRenderer;
     Vector2 onScreenMousePos;
-        Vector2 lastPos;
-
+    Vector2 lastPos;
+    int MaxDistance = 60;
     void Start()
     {
         currentLineRenderer = this.gameObject.GetComponent<LineRenderer>();
@@ -34,7 +34,7 @@ public class BrushLine : MonoBehaviour
     }
     public void PointToMousePos()
     {
-        if (onScreenMousePos != lastPos)
+        if (onScreenMousePos != lastPos  )
         {
             AddPoint();
             lastPos = onScreenMousePos;
