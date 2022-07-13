@@ -168,8 +168,9 @@ MonoBehaviour:
     type: 3}
   DmPrefab: {fileID: 5947156585366081606, guid: 9b440ab71c569d74eb9062498833ebe7,
     type: 3}
-  DmName: DM
+  playerName: Marco
   playerId: 0
+  isGM: 1
 --- !u!1 &726226943
 GameObject:
   m_ObjectHideFlags: 0

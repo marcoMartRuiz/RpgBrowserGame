@@ -4,15 +4,20 @@ using UnityEngine;
 
 public static class DataHandler
 {
-    public static Dictionary<string, GameObject> playerList = new Dictionary<string, GameObject>();
-
-    public static void GetPlayerListData()
+    public static Hashtable playerList = new Hashtable(); //PlayerDictionary
+    static DataHandler()
     {
-
+        
     }
-    public static void SetPlayerListData()
+    public static List<string> GetPlayerList(int playerid, string name)
     {
-
+        //    Player player = new Player();
+        List<string> playerList = new List<string>();
+        playerList.Add(name);
+        return playerList;
+    }
+    public static void SetPlayerData()
+    {
     }
     public static void GetNpcData()
     {
@@ -22,10 +27,10 @@ public static class DataHandler
     {
 
     }
-    public static Dictionary<string, GameObject> GetDmData()
-    {
-        return playerList;
-    }
+    // public static Dictionary<string, GameObject> GetDmData(int gameid, string dmname)
+    // {
+    //     return playerList;
+    // }
     public static void SetDmData(string name, GameObject PrefabObj)
     {
         playerList.Add(name, PrefabObj);

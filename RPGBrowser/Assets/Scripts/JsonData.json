@@ -1,0 +1,18 @@
+{"ServerInfor" :
+    [
+   
+    {
+        "game_id": 0,
+        "dm": "DM",
+        "playerList" :[""]
+
+    }, 
+   
+    {
+        "game_id": 1,
+        "dm": "DM1",
+        "playerList" :[{"Marco": "01"}, {"Alisa": "002"}]
+
+    }
+    ]
+}

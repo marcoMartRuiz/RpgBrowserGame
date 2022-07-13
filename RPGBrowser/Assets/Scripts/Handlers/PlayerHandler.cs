@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ns_UI;
+using UnityEngine.EventSystems;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -29,6 +30,15 @@ public class PlayerHandler : MonoBehaviour
         Vector2 onScreenPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D raycastHit = Physics2D.Raycast(onScreenPoint, Vector2.zero);
 
+        if(OnMouseOver())
+        {
+            this.transform.Find("playerName").gameObject.SetActive(true);            
+        }else
+        {
+            this.transform.Find("playerName").gameObject.SetActive(false);            
+
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             if (raycastHit.collider != null)
@@ -49,4 +59,9 @@ public class PlayerHandler : MonoBehaviour
 
         // }
     }
+
+      private bool OnMouseOver()
+        {
+            return EventSystem.current.IsPointerOverGameObject();
+        }
 }

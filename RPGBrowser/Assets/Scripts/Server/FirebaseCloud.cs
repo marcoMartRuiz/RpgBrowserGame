@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.InteropServices;
-using TMPro;
 
-public class FirebaseAuth : MonoBehaviour
+
+public class FirebaseCloud : MonoBehaviour
 {   
     public GameObject passwordInputFieldObj;
     
-    public TextMeshProUGUI emailText;
-    public TextMeshProUGUI passwordText;
+    // public TextMeshProUGUI emailText;
+    // public TextMeshProUGUI passwordText;
     /// <summary>                                                                                                          
     /// Creates a user with email and password                                                                             
     /// </summary>                                                                                                         
@@ -47,7 +47,7 @@ public class FirebaseAuth : MonoBehaviour
 
     private void GetUserAuth()
     {
-        CreateUserWithEmailAndPassword(emailText.text,passwordText.text , gameObject.name, callback: "OnRequestSuccess", fallback: "OnRequestFailed");
+        // CreateUserWithEmailAndPassword(emailText.text,passwordText.text , gameObject.name, callback: "OnRequestSuccess", fallback: "OnRequestFailed");
     }
 
     public void OnClickSignUp()

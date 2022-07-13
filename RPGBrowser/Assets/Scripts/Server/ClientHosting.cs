@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class AutoHostClient : NetworkBehaviour
+public class ClientHosting : NetworkBehaviour
 {   
     [SerializeField] GameObject roomObj;
     [SerializeField] NetworkManager networkManager;

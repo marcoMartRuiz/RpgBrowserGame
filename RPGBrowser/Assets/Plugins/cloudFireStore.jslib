@@ -1,6 +1,6 @@
 mergeInto(LibraryManager.library, {
 
-    GetDocument: function (collectionPath, documentId, objectName, callback, fallback) {
+    GetJson: function (collectionPath, documentId, objectName, callback, fallback) {
         var parsedPath = Pointer_stringify(collectionPath);
         var parsedId = Pointer_stringify(documentId);
         var parsedObjectName = Pointer_stringify(objectName);

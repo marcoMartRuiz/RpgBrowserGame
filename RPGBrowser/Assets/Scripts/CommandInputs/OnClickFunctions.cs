@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace ns_functions
+namespace ns_UIfunctions
 {
     public class OnClickFunctions 
     {
@@ -42,4 +42,5 @@ namespace ns_functions
 
 
     }
+    
 }
