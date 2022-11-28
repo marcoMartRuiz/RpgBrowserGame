@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using Mirror;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-room-manager
@@ -18,44 +16,29 @@ using System.Collections.Generic;
 /// It requires that the NetworkRoomPlayer component be on the room player objects.
 /// NetworkRoomManager is derived from NetworkManager, and so it implements many of the virtual functions provided by the NetworkManager class.
 /// </summary>
-public class NetworkManagerRoom : NetworkRoomManager
+public class NewNetworkRoomManager : NetworkRoomManager
 {
     #region Server Callbacks
-    public List<NetworkGamePlayerLobby> roomplayerslist {get;} = new List<NetworkGamePlayerLobby>();
+
     /// <summary>
     /// This is called on the server when the server is started - including when a host is started.
     /// </summary>
-    public override void OnRoomStartServer() 
-    {
-        
-    }
+    public override void OnRoomStartServer() { }
 
     /// <summary>
     /// This is called on the server when the server is stopped - including when a host is stopped.
     /// </summary>
-    public override void OnRoomStopServer() 
-    {
-    }
+    public override void OnRoomStopServer() { }
 
     /// <summary>
     /// This is called on the host when a host is started.
     /// </summary>
-    public override void OnRoomStartHost() 
-    {
-        
-    }
+    public override void OnRoomStartHost() { }
 
     /// <summary>
     /// This is called on the host when the host is stopped.
     /// </summary>
-    public override void OnRoomStopHost() 
-    {
-       foreach(var prefab in spawnPrefabs)
-        {
-            
-        }
-            
-    }
+    public override void OnRoomStopHost() { }
 
     /// <summary>
     /// This is called on the server when a new client connects to the server.

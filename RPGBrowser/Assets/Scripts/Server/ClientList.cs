@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ClientList : MonoBehaviour
 {
-   
+
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] TMP_InputField newInputEmail;
     [SerializeField] TMP_InputField newInputPassword;
@@ -23,26 +23,27 @@ public class ClientList : MonoBehaviour
     //     newNameText = currentInputField.textComponent.text; 
 
     // }
-  
-   
+
+
 
     public void OnLoginButton()
     {
         // getclentList compare 
         FirbaseDB.GetJSON(path: newInputEmail.text, gameObject.name, callback: "OnRequestSuccess", fallback: "OnRequestFailed");
         // search algorith on client list
+
         //if both email and password and RandomRoomkey match allow auth token to be given and access 
-        if (newInputEmail.text == "ocram414@gmail.com")
-        {
-            // FirebaseAuthservices and ?Onchangescene
-            Debug.Log("access granted");
-            // onChangescene
-        }
-        else
-        {
-           Debug.Log("Denied");
-           //error message for client and remove/reset client inputs
-        }
+        // if (newInputEmail.text == "ocram414@gmail.com")
+        // {
+        //     // FirebaseAuthservices and ?Onchangescene
+        //     Debug.Log("access granted");
+        //     // onChangescene
+        // }
+        // else
+        // {
+        //    Debug.Log("Denied");
+        //    //error message for client and remove/reset client inputs
+        // }
 
         //open commadnds for dbserver <-> clients
     }
@@ -59,12 +60,16 @@ public class ClientList : MonoBehaviour
     {
         text.color = Color.green;
         text.text = data;
+        LoadScene("LoginScene");
     }
     private void OnRequestFailed(string error)
     {
         text.color = Color.red;
         text.text = error;
     }
-
+    public void LoadScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
 
 }

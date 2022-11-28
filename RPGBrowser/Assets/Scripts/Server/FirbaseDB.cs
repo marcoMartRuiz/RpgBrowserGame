@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 public class FirbaseDB : MonoBehaviour
 {
     
-
      /// <summary>
         /// Gets JSON from a specified path
         /// Will return a snapshot of the JSON in the callback output
@@ -84,3 +83,25 @@ public class FirbaseDB : MonoBehaviour
 
     // }
 }
+
+// <script type="module">
+//       // Import the functions you need from the SDKs you need
+//       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+//       import { } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
+//       // TODO: Add SDKs for Firebase products that you want to use
+//       // https://firebase.google.com/docs/web/setup#available-libraries
+    
+//       // Your web app's Firebase configuration
+//       const firebaseConfig = {
+//         apiKey: "AIzaSyCywja7OH4TUR7H-DvezNOPv1JgfP1WU2M",
+//         authDomain: "testing-bcf26.firebaseapp.com",
+//         databaseURL: "https://testing-bcf26.firebaseio.com",
+//         projectId: "testing-bcf26",
+//         storageBucket: "testing-bcf26.appspot.com",
+//         messagingSenderId: "972089481299",
+//         appId: "1:972089481299:web:0edddf12eefc25fb62cea6"
+//       };
+    
+//       // Initialize Firebase
+//       const app = initializeApp(firebaseConfig);
+//     </script>
