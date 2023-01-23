@@ -8,7 +8,8 @@ mergeInto(LibraryManager.library, {
 
         try {
 
-            firebase.database().ref(parsedPath).once('value').then(function(snapshot) {
+            
+            get(child(dbRef, parsedPath)).then((snapshot) => {
                 unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(snapshot.val()));
             });
 
