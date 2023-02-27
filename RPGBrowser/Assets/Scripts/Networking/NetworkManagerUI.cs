@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 namespace MirrorNetwork
 {
     public class NetworkManagerUI : MonoBehaviour
@@ -15,7 +16,7 @@ namespace MirrorNetwork
         private Button btnClient;           // Client button 
 
         [SerializeField]
-        private InputField inputAddress;    // Address field (defaults to localhost)
+        private TMP_InputField inputAddress;    // Address field (defaults to localhost)
 
         NetworkManager manager;
 

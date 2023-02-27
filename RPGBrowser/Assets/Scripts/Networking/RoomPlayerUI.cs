@@ -5,9 +5,7 @@ using Mirror;
 using ns_Player;
 using UnityEngine;
 using UnityEngine.UI;
-
-
-
+using TMPro;
 
 namespace MirrorNetwork
 {
@@ -23,8 +21,8 @@ namespace MirrorNetwork
          *  a button for Player Cancel (ready)
          */
 
-        private Text playerLabel;        // These are the references to each of the Canvas UI sub elements
-        private InputField playerNameInput;
+        private TextMeshProUGUI playerLabel;        // These are the references to each of the Canvas UI sub elements
+        private TMP_InputField playerNameInput;
         private Button playerReadyButton;
         private Button playerCancelButton;
 
@@ -51,8 +49,8 @@ namespace MirrorNetwork
             // Now try and find the references to the Canvas UI list item's sub elements
             try
             {
-                playerLabel = transform.GetChild(0).GetComponent<Text>();
-                playerNameInput = transform.GetChild(1).GetComponent<InputField>();
+                playerLabel = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+                playerNameInput = transform.GetChild(1).GetComponent<TMP_InputField>();
                 playerReadyButton = transform.GetChild(2).GetComponent<Button>();
                 playerCancelButton = transform.GetChild(3).GetComponent<Button>();
             }

@@ -64,8 +64,8 @@ public class AuthenticatePlayer : MonoBehaviour
         }
         else
         {
-            FirebaseAuth.SignInWithEmailAndPassword(email: emailInput.text, password: passwordInput.text, gameObject.name, callback: "OnRequestSuccess", fallback: "OnLoginFailed");
-
+            // FirebaseAuth.SignInWithEmailAndPassword(email: emailInput.text, password: passwordInput.text, gameObject.name, callback: "OnRequestSuccess", fallback: "OnLoginFailed");
+            OnRequestSuccess("Hello");
 
         }
 

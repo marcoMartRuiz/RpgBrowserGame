@@ -736,7 +736,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344961471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1015,7 +1015,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2032098254}
+      - m_Target: {fileID: 1689479351}
         m_TargetAssemblyTypeName: MirrorNetwork.NetworkManagerUI, Assembly-CSharp
         m_MethodName: StartClient
         m_Mode: 1
@@ -2317,7 +2317,7 @@ RectTransform:
   m_GameObject: {fileID: 1051998275}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1713541675}
@@ -2326,7 +2326,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 500}
+  m_SizeDelta: {x: 600, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1051998277
 MonoBehaviour:
@@ -3055,7 +3055,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1689479349}
   - component: {fileID: 1689479347}
-  - component: {fileID: 1689479346}
+  - component: {fileID: 1689479350}
+  - component: {fileID: 1689479351}
   m_Layer: 0
   m_Name: RoomNetworkManager
   m_TagString: Untagged
@@ -3063,31 +3064,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1689479346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689479345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Port: 7777
-  DualMode: 1
-  NoDelay: 1
-  Interval: 10
-  Timeout: 10000
-  FastResend: 2
-  CongestionWindow: 0
-  SendWindowSize: 4096
-  ReceiveWindowSize: 4096
-  NonAlloc: 1
-  debugLog: 0
-  statisticsGUI: 0
-  statisticsLog: 0
 --- !u!114 &1689479347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3101,23 +3077,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
-  PersistNetworkManagerToOfflineScene: 0
   runInBackground: 1
   autoStartServerBuild: 1
-  serverTickRate: 30
+  autoConnectClientBuild: 0
+  sendRate: 30
   offlineScene: Assets/Scenes/OfflineScene.unity
   onlineScene: Assets/Scenes/LobbyScene.unity
-  transport: {fileID: 1689479346}
+  transport: {fileID: 1689479350}
   networkAddress: localhost
   maxConnections: 100
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 0}
+  playerPrefab: {fileID: 5947156585366081606, guid: 9b440ab71c569d74eb9062498833ebe7,
+    type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
   spawnPrefabs: []
+  timeInterpolationGui: 0
   showRoomGUI: 1
   minPlayers: 1
-  roomPlayerPrefab: {fileID: 3235173686256094378, guid: f17b9f92362082443aa4acd99bb0412c,
+  roomPlayerPrefab: {fileID: -8313473855363764910, guid: 962b5f10116fe46499d9ce14ba49697c,
     type: 3}
   RoomScene: Assets/Scenes/LobbyScene.unity
   GameplayScene: Assets/Scenes/GameScene.unity
@@ -3139,6 +3117,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1689479350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689479345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0110f245bfcfc7d459681f7bd9ebc590, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  port: 7778
+  maxMessageSize: 16384
+  handshakeMaxSize: 3000
+  noDelay: 1
+  sendTimeout: 5000
+  receiveTimeout: 20000
+  serverMaxMessagesPerTick: 10000
+  clientMaxMessagesPerTick: 1000
+  batchSend: 1
+  waitBeforeSend: 0
+  clientUseWss: 0
+  sslEnabled: 0
+  sslCertJson: ./cert.json
+  sslProtocols: 3072
+  _logLevels: 0
+--- !u!114 &1689479351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689479345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b72e5d3a8d27144be7ca2fde7cdbab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnHost: {fileID: 1969139314}
+  btnClient: {fileID: 546960092}
+  inputAddress: {fileID: 917435453}
 --- !u!1 &1713541671
 GameObject:
   m_ObjectHideFlags: 0
@@ -3189,7 +3209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -4128,7 +4148,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2032098254}
+      - m_Target: {fileID: 1689479351}
         m_TargetAssemblyTypeName: MirrorNetwork.NetworkManagerUI, Assembly-CSharp
         m_MethodName: StartHost
         m_Mode: 1
@@ -4498,7 +4518,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2032098253}
-  - component: {fileID: 2032098254}
   m_Layer: 5
   m_Name: ---MirrorNetworkContainer
   m_TagString: Untagged
@@ -4530,18 +4549,3 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2032098254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2032098252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37b72e5d3a8d27144be7ca2fde7cdbab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btnHost: {fileID: 1969139314}
-  btnClient: {fileID: 546960092}
-  inputAddress: {fileID: 0}
