@@ -6,7 +6,7 @@ mergeInto(LibraryManager.library, {
       var parsedObjectName = UTF8ToString(objectName);
       var parsedCallback = UTF8ToString(callback);
       var parsedFallback = UTF8ToString(fallback);
-
+ 
       try {
 
          firebase.auth().createUserWithEmailAndPassword(parsedEmail, parsedPassword).then(function (unused) {
@@ -83,26 +83,41 @@ mergeInto(LibraryManager.library, {
 
       firebase.auth().onAuthStateChanged(function (user) {
          if (user) {
-            window.unityInstance.SendMessage(parsedObjectName, parsedOnUserSignedIn, JSON.stringify(user));
+            window.unityInstance.SendMessage(parsedObjectName, parsedOnUserSignedIn, JSON.stringify(user.uid));
          } else {
             window.unityInstance.SendMessage(parsedObjectName, parsedOnUserSignedOut, "User signed out");
          }
       });
 
    },
-   //  SendPasswordResetEmail: function (email, objectName, callback,fallback) {
-   //    var parsedEmail = UTF8ToString(email);
-   //    var parsedObjectName = UTF8ToString(objectName);
-   //    var parsedCallback = UTF8ToString(callback);
-   //    var parsedFallback = UTF8ToString(fallback);
+    SendPasswordResetEmail: function (email, objectName, callback,fallback) {
+      var parsedEmail = UTF8ToString(email);
+      var parsedObjectName = UTF8ToString(objectName);
+      var parsedCallback = UTF8ToString(callback);
+      var parsedFallback = UTF8ToString(fallback);
 
-   //    firebase.auth().sendPasswordResetEmail(
-   //       parsedEmail, actionCodeSettings)
-   //       .then(function () {
-   //          // Password reset email sent.
-   //       })
-   //       .catch(function (error) {
-   //          // Error occurred. Inspect error.code.
-   //       });
-   // }
+      firebase.auth().sendPasswordResetEmail(
+         parsedEmail, actionCodeSettings)
+         .then(function () {
+            // Password reset email sent.
+         })
+         .catch(function (error) {
+            // Error occurred. Inspect error.code.
+         });
+   },
+   OnAuthStateChangedUid: function (objectName, onUserSignedIn, onUserSignedOut) {
+      var parsedObjectName = UTF8ToString(objectName);
+      var parsedOnUserSignedIn = UTF8ToString(onUserSignedIn);
+      var parsedOnUserSignedOut = UTF8ToString(onUserSignedOut);
+
+      firebase.auth().onAuthStateChangedU(function (user) {
+         if (user) {
+            window.unityInstance.SendMessage(parsedObjectName, parsedOnUserSignedIn, JSON.stringify(user.uid));
+         } else {
+            window.unityInstance.SendMessage(parsedObjectName, parsedOnUserSignedOut, "User signed out");
+         }
+      });
+
+   },
+   
 });

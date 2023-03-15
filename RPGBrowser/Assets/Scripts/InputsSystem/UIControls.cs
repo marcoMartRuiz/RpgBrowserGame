@@ -11,8 +11,7 @@ using UnityEngine.UI;
 public class UIControls : MonoBehaviour
 {
     [SerializeField] EventSystem system;
-     [SerializeField] TextMeshProUGUI errorMessageEmptyField;
-    [SerializeField] TextMeshProUGUI errorMessageNoMatch;
+     [SerializeField] TextMeshProUGUI errorMessageText;
        [SerializeField] TMP_InputField emailInput;
     [SerializeField] TMP_InputField passwordInput;
     // Selectable next;
@@ -20,9 +19,6 @@ public class UIControls : MonoBehaviour
 
     public void onTab()
     {
-        errorMessageEmptyField.gameObject.SetActive(false);
-        errorMessageNoMatch.gameObject.SetActive(false);
-
         Selectable next = system.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnDown();
         if (next != null)
         {
@@ -54,7 +50,20 @@ public class UIControls : MonoBehaviour
             onMouse();
         }
     }
-
+    public void OnCopy(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            
+        }
+    }
+    public void OnPaste(InputValue value)
+    {
+         if (value.isPressed)
+        {
+            
+        }
+    }
     public void onMouse()
     {
         // RaycastHit hit;

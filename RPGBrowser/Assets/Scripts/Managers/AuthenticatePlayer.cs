@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.IO;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,130 +11,102 @@ using FirebaseWebGL.Scripts.FirebaseBridge;
 using FirebaseWebGL.Scripts.Objects;
 using FirebaseWebGL.Examples.Utils;
 using ns_UIfunctions;
+using Newtonsoft.Json;
+using ns_RealtimeDBObj;
+
+
 
 
 public class AuthenticatePlayer : MonoBehaviour
 {
     [SerializeField] Button forgotPassword;
+    [SerializeField] TMP_InputField usernameInput;
     [SerializeField] TMP_InputField emailInput;
     [SerializeField] TMP_InputField passwordInput;
     [SerializeField] Button loginButton;
     [SerializeField] Button SignUpButton;
-    [SerializeField] TextMeshProUGUI errorMessageEmptyField;
-    [SerializeField] TextMeshProUGUI errorMessageNoMatch;
-    [SerializeField] TextMeshProUGUI successText;
+    [SerializeField] TextMeshProUGUI errorMessageText;
     [SerializeField] GameObject networkContainer;
 
     // bool isEmailMatch;
     // bool isPasswordMatch;
+    public string SignInErrorMessages(int i)
+    {
+        string[] signInErrorMessages = { "Empty field not valid", "Password or Email does not match" };
+        return signInErrorMessages[i];
+    }
 
     public void OnClickSignUp()
     {
-        //full email list not check JUST USING AS TEST
-        // FirebaseDatabase.GetJSON(path: "players/player0/password", gameObject.name, callback: "OnSignUpPasswordCheck", fallback: "OnSignUpFailed"); //get
-        // FirebaseDatabase.GetJSON(path: "players/player0", gameObject.name, callback: "OnRequestSuccessTest", fallback: "OnRequestFailed");
 
         if (string.IsNullOrEmpty(emailInput.text) || string.IsNullOrEmpty(passwordInput.text))
         {
             // FirebaseDatabase.PostJSON(path: "players", value: "playerTest: {email: emailInput.text, password: passwordInput.text}", gameObject.name, callback: "OnRequestSuccess", fallback: "OnRequestFailed");
-            errorMessageEmptyField.gameObject.SetActive(true);
+            errorMessageText.text = SignInErrorMessages(0);
         }
         else
         {
-            FirebaseAuth.CreateUserWithEmailAndPassword(email: emailInput.text, password: passwordInput.text, gameObject.name, callback: "OnRequestSuccess", fallback: "OnSignUpFailed");
+            FirebaseAuth.CreateUserWithEmailAndPassword(email: emailInput.text, password: passwordInput.text, gameObject.name, callback: "OnSignUpSuccess", fallback: "DisplayErrorObject");
         }
     }
-
-    // private void OnRequestSuccessTest(string data) //All at once ..**FIX**..
-    // {
-    //     string inputData = "{email: " + emailInput.text + "," + "password: " + passwordInput.text + "}";
-    //     if (data == inputData)
-    //     {
-    //         FirebaseDatabase.PostJSON(path: "players", value: "player: {email: emailInput.text, password: passwordInput.text}", gameObject.name, callback: "OnRequestSuccess", fallback: "OnRequestFailed");
-    //     }
-    // }
     //---------------------------------------------------------------------
     public void OnClickLogin()
     {
         // checked email and password
-        // FirebaseDatabase.GetJSON(path: "players/player0/password", gameObject.name, callback: "OnSignUpPasswordCheck", fallback: "OnRequestFailed");
         if (string.IsNullOrEmpty(emailInput.text) || string.IsNullOrEmpty(passwordInput.text))
         {
             //load lobby scene
-            errorMessageNoMatch.gameObject.SetActive(true);
+            errorMessageText.text = SignInErrorMessages(0);
         }
+        //check if account is in use (low)
         else
         {
-            // FirebaseAuth.SignInWithEmailAndPassword(email: emailInput.text, password: passwordInput.text, gameObject.name, callback: "OnRequestSuccess", fallback: "OnLoginFailed");
-            OnRequestSuccess("Hello");
-
+            FirebaseAuth.SignInWithEmailAndPassword(email: emailInput.text, password: passwordInput.text, gameObject.name, callback: "OnLoginSuccess", fallback: "DisplayErrorObject");
         }
-
     }
     //---------------------------------------------------------------------
+    // private void OnSignUpSuccess(string data)
+    // {
+    //     UserData emailPasswordData = new UserData
+    //     {
+    //         username = usernameInput.text,
+    //         email = emailInput.text,
+    //         password = passwordInput.text,
+    //     };
+    //     string jsonValue = JsonConvert.SerializeObject(emailPasswordData, Formatting.Indented);// string inputData = "{email: " + emailInput.text + "," + "password: " + passwordInput.text + "}";
+    //     errorMessageText.text = " ";
+    //     FirebaseDatabase.PostJSON(path: "browsergame/players", value: jsonValue, gameObject.name, callback: "OnRequestSuccess", fallback: "DisplayErrorObject");
+    // }
+    private void OnLoginSuccess(string data)
+    {
+        // gameObject.SetActive(false);
+        // networkContainer.SetActive(true);
 
+        errorMessageText.text = " ";
+    }
+    //-----------------------------------------------S----------------------
+    public void OnRequestSuccess()
+    {
+        errorMessageText.color = Color.green;
+        errorMessageText.text = "sucess";
+    }
+    private void OnRequestFailed(string error)
+    {
+        errorMessageText.text = error;
+    }
+    //---------------------------------------------------------------------
     public void OnClickForgotPassword()
     {
 
     }
-
-    private void OnSignUpFailed(string error)
+    public void DisplayErrorObject(string error)
     {
-        errorMessageEmptyField.gameObject.SetActive(true);
+        var parsedError = StringSerializationAPI.Deserialize(typeof(FirebaseError), error) as FirebaseError;
+        OnRequestFailed(parsedError.message);
     }
-    //---------------------------------------------------------------------
-    private void OnLoginFailed(string error)
-    {
-        errorMessageNoMatch.gameObject.SetActive(true);
-    }
-    private void OnRequestSuccess(string data)
-    {
-        successText.gameObject.SetActive(true);
-        successText.text = data;
-        gameObject.SetActive(false);
-        networkContainer.SetActive(true);
-    }
-    // public void DisplayInfo(string info)
-    // {
-    //     successText.color = Color.green;
-    //     testText.text = info;
-    //     testText.gameObject.SetActive(true);
-    // }
-    // public void DisplayErrorObject(string error)
-    // {
-    //     var parsedError = StringSerializationAPI.Deserialize(typeof(FirebaseError), error) as FirebaseError;
-    //     DisplayError(parsedError.message);
-    // }
-    // public void DisplayError(string error)
-    // {
-    //     testText.color = Color.red;
-    //     testText.text = error;
-    //     Debug.LogError(error);
-    // }
 
 
 
-    // private void OnSignUpEmailCheck(string data)
-    // {
-    //     successText.text = data;
-    //     if (data == emailInput.text)
-    //     {
-    //         isEmailMatch = false;
-    //     }
-    //     else
-    //     {
-    //         isEmailMatch = true;
-    //     }
-    // }
-    // private void OnSignUpPasswordCheck(string data)
-    // {
-    //     if (data == passwordInput.text)
-    //     {
-    //         isPasswordMatch = false;
-    //     }
-    //     else
-    //     {
-    //         isPasswordMatch = true;
-    //     }
-    // }
+
+
 }

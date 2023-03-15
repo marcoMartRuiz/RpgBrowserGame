@@ -120,11 +120,13 @@ namespace MirrorNetwork
                     listItemUI = Instantiate(ListItemUIPrefab.gameObject);
                     listItemUI.name = "ListItem" + String.Format("{0,4:D4}", UnityEngine.Random.Range(0, 1000));
 
+
                     roomPlayerUI = listItemUI.GetComponent<RoomPlayerUI>();
 
                     if (roomPlayerUI)
                     {
                         roomPlayerUI.ownerID = netId;   // Later on we'll need to be able to verify the list item is linked to this player. We can do that using this player's NetId
+                        roomPlayerUI.transform.position.Set(0,0,0);
 
                         roomPlayerUI.SetPlayerNameLabel(PlayerLabel()); // Use a standardized method to create the label for this player.
 

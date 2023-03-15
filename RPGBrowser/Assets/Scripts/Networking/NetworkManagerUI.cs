@@ -16,7 +16,7 @@ namespace MirrorNetwork
         private Button btnClient;           // Client button 
 
         [SerializeField]
-        private TMP_InputField inputAddress;    // Address field (defaults to localhost)
+        private TMP_InputField roomInput;    // Address field (defaults to localhost)
 
         NetworkManager manager;
 
@@ -32,7 +32,8 @@ namespace MirrorNetwork
             // Disable the GUI in one go
             btnClient.interactable = false;
             btnHost.interactable = false;
-            inputAddress.interactable = false;
+            roomInput.interactable = false;
+            
         }
 
         public void StartHost()
@@ -40,7 +41,7 @@ namespace MirrorNetwork
             // This is -more or less- the same code which Mirror used in the OnGUI() calls
             if (!NetworkClient.active && !NetworkServer.active)
             {
-                DisableUI();
+                // DisableUI();
                 manager.StartHost();
             }
             else Debug.LogWarning("NetworkManagerUI.StartHost(): client already active.");
@@ -50,8 +51,8 @@ namespace MirrorNetwork
         {
             if (!NetworkClient.active && !NetworkServer.active)
             {
-                manager.networkAddress = inputAddress.text;
-                DisableUI();
+                // manager.networkAddress = roomInput.text;
+                // DisableUI();
                 manager.StartClient();
             }
             else Debug.LogWarning("NetworkManagerUI.StartClient(): client already active.");
