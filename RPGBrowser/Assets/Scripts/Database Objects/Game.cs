@@ -25,9 +25,12 @@ namespace ns_RealtimeDBObj
    public class UserID
     {
         public string uid { get; set; }
-        public UserData UserData {get; set;}
+        // public UserData UserData {get; set;}
     }
-
+    public class CharacterID
+    {
+        public int id {get; set;}
+    }
     public class UserData
     {
         public string username { get; set; }
@@ -37,11 +40,19 @@ namespace ns_RealtimeDBObj
         // List<SavedGames> SavedGamesList { get; set; }
 
     }
+    public class MyCharacters
+    {
+        public IList<CharacterID> characterList {get; set;}
+    }
 
-    public class SavedGames
+    public class MyCampaigns
     {
 
-        public string gameName;
-        public DateTime savedDate;
+        // List<Player> PlayerList =  new List<Player>();
+        public string name {get; set;}
+        public string password {get; set;}
+        public IList<UserID> playerlist {get; set;}
     }
+
+    
 }

@@ -56,10 +56,6 @@ namespace ns_Forms
             // string user_id = user;
             // ErrorMessageText.text = user_id;
         }
-        public void isUserSignedOut(string user)
-        {
-            //add later
-        }
         public void OnSignInRequestSuccess(string data)
         {
             ErrorMessageText.text = FormFunctions.SignInMessages(4);
@@ -69,11 +65,16 @@ namespace ns_Forms
             
             // ErrorMessageText.text = data;
         }
+        public void isUserSignedOut(string user)
+        {
+            //add later
+        }
         public void OnSignInRequestFailed(string error)
         {
             ErrorMessageText.text = error;
             ErrorMessageText.fontSize = 14;
         }
+        // ----------------------------------------------------------------------------------------------------------------------
         public void DisplayErrorObject(string error)
         {
             var parsedError = StringSerializationAPI.Deserialize(typeof(FirebaseError), error) as FirebaseError;

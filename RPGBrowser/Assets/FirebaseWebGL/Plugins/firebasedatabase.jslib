@@ -16,6 +16,47 @@ mergeInto(LibraryManager.library, {
             window.unityInstance.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
         }
     },
+    GetChildKeyJSON: function (path, objectName, callback, fallback) {
+        var parsedPath = UTF8ToString(path);
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
+        var parsedFallback = UTF8ToString(fallback);
+
+        try {
+
+            firebase.database().ref(parsedPath).orderByKey().once('value').then(function (snapshot) {
+                snapshot.forEach(function(childSnapshot)
+                {
+                    // var key = childSnapshot.key;
+                    window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(childSnapshot.key));
+
+                })
+            });
+
+        } catch (error) {
+            window.unityInstance.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+        }
+    },
+    GetChildValueJSON: function (path, objectName, callback, fallback) {
+        var parsedPath = UTF8ToString(path);
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
+        var parsedFallback = UTF8ToString(fallback);
+
+        try {
+
+            firebase.database().ref(parsedPath).orderByKey().once('value').then(function (snapshot) {
+                snapshot.forEach(function(childSnapshot)
+                {
+                    // var childData =  childSnapshot.val();
+                    window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(childSnapshot.val()));
+                })
+            });
+
+        } catch (error) {
+            window.unityInstance.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+        }
+    },
     GetKey: function (path, objectName, callback, fallback) {
         var parsedPath = UTF8ToString(path);
         var parsedObjectName = UTF8ToString(objectName);

@@ -4,7 +4,7 @@ using TMPro;
 using FirebaseWebGL.Scripts.FirebaseBridge;
 using FirebaseWebGL.Scripts.Objects;
 using FirebaseWebGL.Examples.Utils;
-using  MirrorNetwork;
+using MirrorNetwork;
 
 namespace ns_Forms
 {
@@ -16,6 +16,7 @@ namespace ns_Forms
         [SerializeField] Toggle toggle;
         [SerializeField] TextMeshProUGUI ErrorMessageText;
         [SerializeField] GameObject HostClientContainer;
+        // [SerializeField] TextMeshProUGUI testing;
 
         //---------------------------------------------------------------------
         public void OnClickLogin()
@@ -31,7 +32,9 @@ namespace ns_Forms
             //     FirebaseAuth.SignInWithEmailAndPassword(email: EmailInput.text, password: PasswordInput.text, gameObject.name, callback: "OnLoginSuccess", fallback: "DisplayErrorObject");
             // }
 
-            // testingInBrowser();
+            testingInBrowser();
+
+
         }
 
         public void testingInBrowser()
@@ -40,26 +43,11 @@ namespace ns_Forms
             PasswordInput.text = "password"; //for testing
             FirebaseAuth.SignInWithEmailAndPassword(email: EmailInput.text, password: PasswordInput.text, gameObject.name, callback: "OnLoginSuccess", fallback: "DisplayErrorObject");
         }
-        //---------------------------------------------------------------------
-        private void OnLoginSuccess(string data)
+        public void OnClickSignUp()
         {
-            // if statement d20 dice animation. and if greater than 12 succes login  else...... 
-            gameObject.SetActive(false);
-            HostClientContainer.SetActive(true);
-        }
-        public void OnRequestSuccess()
-        {
-            ErrorMessageText.color = Color.green;
-            ErrorMessageText.text = FormFunctions.SignInMessages(2);
-        }
-        private void OnRequestFailed(string error)
-        {
-            ErrorMessageText.text = error;
-        }
-        public void DisplayErrorObject(string error)
-        {
-            var parsedError = StringSerializationAPI.Deserialize(typeof(FirebaseError), error) as FirebaseError;
-            OnRequestFailed(parsedError.message);
+            EmailInput.text = "";
+            PasswordInput.text = "";
+            ErrorMessageText.text = FormFunctions.SignInMessages(3);
         }
         public void OnClickForgotPassword()
         {
@@ -68,15 +56,52 @@ namespace ns_Forms
 
         }
         //---------------------------------------------------------------------
-        public void OnClickSignUp()
+        private void OnLoginSuccess(string data)
         {
-            EmailInput.text = "";
-            PasswordInput.text = "";
-            ErrorMessageText.text = FormFunctions.SignInMessages(3);
+            // if statement d20 dice animation. and if greater than 12 succes login  else...... 
+            FirebaseAuth.OnAuthStateChanged(gameObject.name, onUserSignedIn: "isUserSignedIn", onUserSignedOut: "DisplayErrorObject");
+          
+
+
+        }
+        public void isUserSignedIn(string user)
+        {
+            JoinNetwork.userKEY = user;
+              FirebaseDatabase.GetJSON(path: "rpgGame/users/" + JoinNetwork.userKEY + "/username", gameObject.name, callback: "gotUsernameSuccess", fallback: "DisplayErrorObject");
+        }
+        public void OnRequestSuccess()
+        {
+            ErrorMessageText.color = Color.green;
+            ErrorMessageText.text = FormFunctions.SignInMessages(2);
+        }
+        public void isUserSignedOut(string error)
+        {
+            // SavedMessageText.text = error;
+        }
+        private void OnRequestFailed(string error)
+        {
+            ErrorMessageText.text = error;
+        }
+        //---------------------------------------------------------------------
+        public void DisplayErrorObject(string error)
+        {
+            var parsedError = StringSerializationAPI.Deserialize(typeof(FirebaseError), error) as FirebaseError;
+            OnRequestFailed(parsedError.message);
         }
         public void OnTogglePassword()
         {
             FormFunctions.ToggleHidePassword(PasswordInput, toggle);
+        }
+        public void gotUsernameSuccess(string data)
+        {
+            JoinNetwork.username = data;
+            HostClientContainer.SetActive(true);
+            gameObject.SetActive(false);
+           
+        }
+        public void gotUsernameFailed(string error)
+        {
+            ErrorMessageText.text = error;
         }
 
     }

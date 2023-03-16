@@ -14,6 +14,26 @@ namespace FirebaseWebGL.Scripts.FirebaseBridge
         /// <param name="fallback"> Name of the method to call when the operation was unsuccessful. Method must have signature: void Method(string output). Will return a serialized FirebaseError object </param>
         [DllImport("__Internal")]
         public static extern void GetJSON(string path, string objectName, string callback, string fallback);
+         /// <summary>
+        /// Gets JSON key from a specified path
+        /// Will return a snapshot of the JSON key in the callback output
+        /// </summary>
+        /// <param name="path"> Database path </param>
+        /// <param name="objectName"> Name of the gameobject to call the callback/fallback of </param>
+        /// <param name="callback"> Name of the method to call when the operation was successful. Method must have signature: void Method(string output) </param>
+        /// <param name="fallback"> Name of the method to call when the operation was unsuccessful. Method must have signature: void Method(string output). Will return a serialized FirebaseError object </param>
+        [DllImport("__Internal")]
+        public static extern void GetChildKeyJSON(string path, string objectName, string callback, string fallback);
+        /// <summary>
+        /// Gets value from a specified path
+        /// Will return a snapshot of the value in the callback output
+        /// </summary>
+        /// <param name="path"> Database path </param>
+        /// <param name="objectName"> Name of the gameobject to call the callback/fallback of </param>
+        /// <param name="callback"> Name of the method to call when the operation was successful. Method must have signature: void Method(string output) </param>
+        /// <param name="fallback"> Name of the method to call when the operation was unsuccessful. Method must have signature: void Method(string output). Will return a serialized FirebaseError object </param>
+        [DllImport("__Internal")]
+        public static extern void GetChildValueJSON(string path, string objectName, string callback, string fallback);
         /// <summary>
         /// Gets key from a specified path
         /// Will return a snapshot of the key in the callback output
