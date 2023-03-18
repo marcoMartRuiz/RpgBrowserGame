@@ -41,7 +41,7 @@ namespace ns_Forms
         }
         public void isUserSignedIn(string user)
         {
-
+            var userString = user.Trim('"');
             UserData userData = new UserData
             {
                 username = UsernameInput.text,
@@ -51,7 +51,7 @@ namespace ns_Forms
             };
             string jsonValue = JsonConvert.SerializeObject(userData, Formatting.Indented);// string inputData = "{email: " + emailInput.text + "," + "password: " + passwordInput.text + "}";
             // errorMessageText.text = " ";
-            FirebaseDatabase.UpdateJSON(path: "rpgGame/users/"+user, value: jsonValue, gameObject.name, callback: "OnSignInRequestSuccess", fallback: "OnSignInRequestFailed");
+            FirebaseDatabase.UpdateJSON(path: "rpgGame/users/"+userString , value: jsonValue, gameObject.name, callback: "OnSignInRequestSuccess", fallback: "OnSignInRequestFailed");
 
             // string user_id = user;
             // ErrorMessageText.text = user_id;

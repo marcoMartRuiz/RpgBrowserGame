@@ -42,7 +42,7 @@ namespace MirrorNetwork
             panelContainer = GameObject.Find("ListOfPlayers");
             if (panelContainer)
             {
-                transform.SetParent(panelContainer.transform);
+                transform.SetParent(panelContainer.transform,false); 
             }
             else Debug.LogError("RoomPlayerUI.Start(): UI parent container not found");
 

@@ -21,16 +21,21 @@ mergeInto(LibraryManager.library, {
         var parsedObjectName = UTF8ToString(objectName);
         var parsedCallback = UTF8ToString(callback);
         var parsedFallback = UTF8ToString(fallback);
+        var snapshotArray = [];
 
         try {
 
             firebase.database().ref(parsedPath).orderByKey().once('value').then(function (snapshot) {
                 snapshot.forEach(function(childSnapshot)
                 {
-                    // var key = childSnapshot.key;
-                    window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(childSnapshot.key));
-
+                    var key = childSnapshot.key;
+                    snapshotArray.push(key);
+                    // window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(snapshotArray));
+                 
+                    window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(key));
                 })
+                // window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(snapshotArray));
+                
             });
 
         } catch (error) {

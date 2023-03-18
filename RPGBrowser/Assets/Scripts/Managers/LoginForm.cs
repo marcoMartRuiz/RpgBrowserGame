@@ -4,6 +4,7 @@ using TMPro;
 using FirebaseWebGL.Scripts.FirebaseBridge;
 using FirebaseWebGL.Scripts.Objects;
 using FirebaseWebGL.Examples.Utils;
+using Newtonsoft.Json;
 using MirrorNetwork;
 
 namespace ns_Forms
@@ -66,8 +67,9 @@ namespace ns_Forms
         }
         public void isUserSignedIn(string user)
         {
-            JoinNetwork.userKEY = user;
-              FirebaseDatabase.GetJSON(path: "rpgGame/users/" + JoinNetwork.userKEY + "/username", gameObject.name, callback: "gotUsernameSuccess", fallback: "DisplayErrorObject");
+            JoinNetwork.userKEY = user.Trim('"');
+            FirebaseDatabase.GetJSON(path: "rpgGame/users/" + JoinNetwork.userKEY + "/username", gameObject.name, callback: "gotUsernameSuccess", fallback: "DisplayErrorObject");
+
         }
         public void OnRequestSuccess()
         {
@@ -94,7 +96,8 @@ namespace ns_Forms
         }
         public void gotUsernameSuccess(string data)
         {
-            JoinNetwork.username = data;
+            JoinNetwork.username = data.Trim('"');
+
             HostClientContainer.SetActive(true);
             gameObject.SetActive(false);
            
